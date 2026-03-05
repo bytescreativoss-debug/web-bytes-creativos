@@ -7,11 +7,13 @@ const CallToAction = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl font-black uppercase mb-4">AGENDEMOS UNA LLAMADA</h2>
+            <h2 className="text-3xl font-black uppercase mb-4">¿Estás listo para potenciar tu negocio?</h2>
             <p className="text-gray-400 mb-6">Hablemos de tu proyecto y cómo podemos ayudarte a crecer.</p>
             <form className="space-y-4">
               <input type="text" placeholder="Tu Nombre" className="w-full bg-black/50 border border-white/10 p-4 rounded-xl text-white outline-none focus:border-[#C8F000]" />
-              <input type="email" placeholder="Tu Email" className="w-full bg-black/50 border border-white/10 p-4 rounded-xl text-white outline-none focus:border-[#C8F000]" />
+              <input type="email" placeholder="Email" className="w-full bg-black/50 border border-white/10 p-4 rounded-xl text-white outline-none focus:border-[#C8F000]" />
+              <input type="tel" placeholder="Número" className="w-full bg-black/50 border border-white/10 p-4 rounded-xl text-white outline-none focus:border-[#C8F000]" />
+              <textarea placeholder="Mensaje" rows="4" className="w-full bg-black/50 border border-white/10 p-4 rounded-xl text-white outline-none focus:border-[#C8F000] resize-none" />
               <button type="submit" className="bg-[#C8F000] text-black px-8 py-3 rounded-full font-black text-xs uppercase hover:scale-105 transition">ENVIAR</button>
             </form>
           </div>
