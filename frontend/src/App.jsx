@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import logo from './imagenes/logobytes.png';
+import Footer from './components/Footer';
+import CallToAction from './components/CallToAction';
 
 // --- COMPONENTE DE LA PÁGINA DE SOLUCIONES (SOLO SERVICIOS PAGOS) ---
 const PaginaSoluciones = () => {
@@ -235,12 +237,16 @@ export default function App() {
                   </div>
                 </div>
               </section>
+              
+              <CallToAction />
             </>
           } />
           <Route path="/soluciones" element={<PaginaSoluciones />} />
           <Route path="/recursos" element={<PaginaRecursos />} />
           <Route path="/contacto" element={<PaginaContacto />} />
         </Routes>
+
+        <Footer />
 
         {/* BOTÓN CHAT IA ACTUALIZADO */}
         <div className="fixed bottom-10 right-10 z-[9999] flex flex-col items-end gap-4">
