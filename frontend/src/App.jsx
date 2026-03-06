@@ -5,9 +5,13 @@ import logo from './imagenes/logobytes.png';
 // --- COMPONENTE DE LA PÁGINA DE SOLUCIONES (SOLO SERVICIOS PAGOS) ---
 const PaginaSoluciones = () => {
   const packs = [
-    { title: "Brand Identity", price: 150000, feat: ["Logo", "Manual de Marca", "Paleta Tech"] },
-    { title: "Web Development", price: 450000, feat: ["React + Tailwind", "Backend", "Dominio .com.ar"] },
-    { title: "Social Media Tech", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] }
+    { title: "Sitios Web", price: 150000, feat: ["Logo", "Manual de Marca", "Paleta Tech"] },
+    { title: "Alineamiento de Perfil", price: 450000, feat: ["React + Tailwind", "Backend", "Dominio .com.ar"] },
+    { title: "ADS en Meta", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] },
+    { title: "ADS en Meta", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] },
+    { title: "ADS en Meta", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] },
+    { title: "ADS en Meta", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] } 
+  
   ];
 
   return (
@@ -20,7 +24,10 @@ const PaginaSoluciones = () => {
         {packs.map((p, idx) => (
           <div key={idx} className="bg-[#161616] border-2 border-[#C8F000]/20 rounded-[2.5rem] p-10 hover:border-[#C8F000] transition-all group">
             <h4 className="text-2xl font-bold mb-2 uppercase italic text-white">{p.title}</h4>
-            <div className="text-[#C8F000] text-4xl font-black font-mono mb-8">${p.price.toLocaleString()}</div>
+            <div className="mb-8">
+              <div className="text-white text-sm font-mono mb-2">Desde</div>
+              <div className="text-[#C8F000] text-4xl font-black font-mono">${p.price.toLocaleString()}</div>
+            </div>
             <ul className="space-y-3 mb-10">
               {p.feat.map((f, i) => (
                 <li key={i} className="text-gray-500 text-sm flex items-center gap-2">

@@ -42,7 +42,7 @@ app.post('/api/chat', async (req, res) => {
       });
     }
 
-    // 🤖 SI NO ES PRODUCTO ESPECÍFICO → OPENAI
+    // 🤖 SI NO ES PRODUCTO ESPECÍFICO → OPENAI- Prompt
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
