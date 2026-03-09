@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/bytescreativoss-debug/web-bytes-creativos/refs/heads/main/frontend/src/imagenes/logobytes3.png?token=GHSAT0AAAAAADVTASEZ5LFJJZS6CXEIKWBW2NOPJZA" width="680">
+  <img src="https://files.catbox.moe/eyg2um.png" width="680">
 </p>
 
 <h1 align="center">Ecosistema Web 2026</h1>
