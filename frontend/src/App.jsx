@@ -9,9 +9,12 @@ import AnimatedBanner from './components/AnimatedBanner';
 const PaginaSoluciones = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const packs = [
-    { title: "Brand Identity", price: 150000, feat: ["Logo", "Manual de Marca", "Paleta Tech"] },
-    { title: "Web Development", price: 450000, feat: ["React + Tailwind", "Backend", "Dominio .com.ar"] },
-    { title: "Social Media Tech", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] }
+    { title: "Auditoría Digital Estratégica", price: 70000, feat: ["Evaluación del negocio online", "Benchmark / análisis rápido de competencia.", "Plan de acción estratégico"] },
+    { title: "Asesoría 1:1", price: 70000, feat: ["Videollamada de 40 minutos", "Diagnóstico del perfil", "Calendario de contenido"] },
+    { title: "UGC (Creación de contenido)", price: 250000, feat: ["4 reels con audio tendencia", "10 fotos formato stories", "10 fotos formato post vertical"] },
+    { title: "ADS en Meta (Publicidad)", price: 150000, feat: ["1 campaña activa", "1 objetivo publicitario", "Reporte simple de resultados"] },
+    { title: "Sitios Web", price: 170000, feat: ["Diseño personalizado", "Dominio .com o .com.ar por un año", "Integraciones con medio de pagos y métodos de envío", "Vinculación con redes sociales"] },
+    { title: "Automatización Inteligente para tu Negocio", price: 300000, feat: ["Responder consultas de clientes", "Procesar pedidos y organizar información", "Conectar tus herramientas y sistemas"] }
   ];
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 min-h-screen">
@@ -19,11 +22,14 @@ const PaginaSoluciones = () => {
         <h2 className="text-[#C8F000] font-black tracking-[0.4em] uppercase text-xs mb-4">Catálogo Oficial</h2>
         <h3 className="text-3xl sm:text-5xl font-black italic text-white uppercase">SOLUCIONES <span className="text-gray-600">BYTES</span></h3>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {packs.map((p, idx) => (
           <div key={idx} className="bg-[#161616] border-2 border-[#C8F000]/20 rounded-[2rem] p-8 sm:p-10 hover:border-[#C8F000] transition-all group">
             <h4 className="text-xl sm:text-2xl font-bold mb-2 uppercase italic text-white">{p.title}</h4>
-            <div className="text-[#C8F000] text-3xl sm:text-4xl font-black font-mono mb-6 sm:mb-8">${p.price.toLocaleString()}</div>
+            <div className="mb-6 sm:mb-8">
+              <div className="text-white text-xs font-mono mb-1 tracking-widest uppercase">Desde</div>
+              <div className="text-[#C8F000] text-3xl sm:text-4xl font-black font-mono">${p.price.toLocaleString()}</div>
+            </div>
             <ul className="space-y-3 mb-8 sm:mb-10">
               {p.feat.map((f, i) => (
                 <li key={i} className="text-gray-500 text-sm flex items-center gap-2">
