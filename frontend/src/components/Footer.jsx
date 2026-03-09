@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaYoutube, FaTiktok } from 'react-icons/fa';
 import logo from '../imagenes/logobytes.png';
 
 const Footer = () => {
@@ -28,13 +28,19 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h3 className="text-[#C8F000] font-black uppercase text-sm mb-4">SIGUENOS</h3>
+              <h3 className="text-[#C8F000] font-black uppercase text-sm mb-4">SEGUINOS</h3>
               <div className="flex space-x-4">
                 <a href="https://www.instagram.com/bytescreativoss/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
                   <FaInstagram />
                 </a>
                 <a href="https://ar.linkedin.com/in/bytes-creativos-1004bb379" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
                   <FaLinkedin />
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
+                  <FaYoutube />
+                </a>
+                <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
+                  <FaTiktok />
                 </a>
               </div>
             </div>
