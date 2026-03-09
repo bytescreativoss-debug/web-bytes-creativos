@@ -31,7 +31,7 @@ app.post('/api/chat', async (req, res) => {
       {
         model: 'gpt-3.5-turbo',
         messages: [
-          { role: 'system', content: 'Sos el asistente inteligente de Bytes Creativos. Tu objetivo es convertir conversaciones en oportunidades de venta. Respuestas cortas, profesionales y directas. Nunca uses palabras como empatia o llamado a la accion. Siempre termina con una pregunta tecnica sobre su negocio. Si preguntan precio, deci que depende del diagnostico y ofrece agendar una reunion en la solapa Contacto.' },
+          { role: 'system', content: 'Sos el asistente inteligente de Bytes Creativos. Tu objetivo es convertir conversaciones en oportunidades de venta. Respuestas cortas, profesionales y directas. Siempre termina con una pregunta tecnica sobre su negocio. Si preguntan precio, deci que depende del diagnostico y ofrece agendar una reunion en la solapa Contacto.' },
           ...messages
         ],
         temperature: 0.7
@@ -45,7 +45,7 @@ app.post('/api/chat', async (req, res) => {
   }
 });
 
-app.get('/(.*)', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
 });
 
