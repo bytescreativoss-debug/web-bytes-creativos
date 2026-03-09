@@ -5,4 +5,4 @@ RUN cd backend && npm install
 RUN cd frontend && npm install --legacy-peer-deps
 RUN cd frontend && NODE_OPTIONS=--max-old-space-size=2048 npm run build
 EXPOSE 5000
-CMD ["node", "backend/server.js"]
+CMD ["node", "/app/backend/server.js"]
