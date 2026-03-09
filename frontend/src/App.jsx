@@ -11,9 +11,13 @@ const PaginaSoluciones = () => {
     window.scrollTo(0, 0);
   }, []);
   const packs = [
-    { title: "Brand Identity", price: 150000, feat: ["Logo", "Manual de Marca", "Paleta Tech"] },
-    { title: "Web Development", price: 450000, feat: ["React + Tailwind", "Backend", "Dominio .com.ar"] },
-    { title: "Social Media Tech", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] }
+    { title: "Auditoría Digital Estratégica", price: 70000, feat: ["Evaluación del negocio online", "Benchmark / análisis rápido de competencia.", "Plan de acción estratégico"] },
+    { title: "Asesoria 1:1", price: 70000, feat: ["Videollamada de 40 minutos", "Diagnostico del perfil", "Calendario de contenido"] },
+    { title: "UGC (Creación de contenido)", price: 250000, feat: ["4 reels con audio tendencia", "10 fotos formato stories", "10 fotos formato post vertical"] },
+    { title: "ADS en Meta (Publicidad)", price: 150000, feat: ["1 campaña activa", "1 objetivo publicitario", "Reporte simple de resultados"] },
+    { title: "Sitios Web", price: 170000, feat: ["Diseño personalizado", "Dominio .com o .com.ar por un año", "Integraciones con medio de pagos y metodos de envio", "Vinculación con redes sociales"] },
+    { title: "Automatización Inteligente para tu Negocio", price: 300000, feat: ["Responder consultas de clientes", "Procesar pedidos y organizar información", "Conectar tus herramientas y sistemas"] } 
+  
   ];
 
   return (
@@ -26,7 +30,10 @@ const PaginaSoluciones = () => {
         {packs.map((p, idx) => (
           <div key={idx} className="bg-[#161616] border-2 border-[#C8F000]/20 rounded-[2.5rem] p-10 hover:border-[#C8F000] transition-all group">
             <h4 className="text-2xl font-bold mb-2 uppercase italic text-white">{p.title}</h4>
-            <div className="text-[#C8F000] text-4xl font-black font-mono mb-8">${p.price.toLocaleString()}</div>
+            <div className="mb-8">
+              <div className="text-white text-sm font-mono mb-2">Desde</div>
+              <div className="text-[#C8F000] text-4xl font-black font-mono">${p.price.toLocaleString()}</div>
+            </div>
             <ul className="space-y-3 mb-10">
               {p.feat.map((f, i) => (
                 <li key={i} className="text-gray-500 text-sm flex items-center gap-2">

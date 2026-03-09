@@ -26,6 +26,8 @@ app.post('/api/chat', async (req, res) => {
     if (userMessage.includes('redes') || userMessage.includes('social') || userMessage.includes('reels')) {
       return res.json({ role: 'assistant', content: 'Para crecer en redes necesitas estrategia. El pack Social Media Tech incluye Estrategia IA, 5 Reels y Dashboard en Looker Studio. Queres que analicemos tu perfil actual?' });
     }
+
+    // 🤖 SI NO ES PRODUCTO ESPECÍFICO → OPENAI- Prompt
     const response = await axios.post(
       'https://api.openai.com/v1/chat/completions',
       {
