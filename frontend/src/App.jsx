@@ -44,19 +44,28 @@ const PaginaSoluciones = () => {
   );
 };
 
-// --- COMPONENTE DE RECURSOS (ACCESO DIRECTO + EXPERIENCIAS) ---
+// --- COMPONENTE DE RECURSOS (ORGANIZADO) ---
 const PaginaRecursos = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   const recursos = [
-    { title: "Curso Chatbot Instagram", desc: "Aprendé a automatizar tus DMs con este tutorial paso a paso.", link: "https://youtu.be/tUDPby1jyh8" },
-    { title: "Diagnóstico Digital", desc: "PDF exclusivo para auditar la presencia online de tu negocio.", link: "#" }
+    { 
+      title: "Crea tu fan page en facebook y vende mas", 
+      desc: "PDF exclusivo para auditar la presencia online de tu negocio.", 
+      link: pdfFacebook 
+    },
+    { 
+      title: "Mercado Pago para Emprendedores", 
+      desc: "Guía completa para cobrar tus ventas de forma profesional.", 
+      link: pdfMercadoPago 
+    }
   ];
 
   const [experiencias, setExperiencias] = useState([
     { nombre: "Cris", comentario: "Excelente herramienta para automatizar Instagram.", fecha: "27/02/2026" }
   ]);
+  
   const [nuevaEx, setNuevaEx] = useState({ nombre: "", comentario: "" });
 
   const agregarExperiencia = (e) => {
@@ -72,6 +81,7 @@ const PaginaRecursos = () => {
         <h2 className="text-[#C8F000] font-black tracking-[0.4em] uppercase text-xs mb-4">Librería Bytes</h2>
         <h3 className="text-5xl font-black italic text-white uppercase">RECURSOS <span className="text-gray-600">GRATIS</span></h3>
       </div>
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
         {recursos.map((r, i) => (
           <div key={i} className="bg-[#161616] p-10 rounded-[2.5rem] border-2 border-white/5 hover:border-[#C8F000] transition-all text-white">
@@ -107,7 +117,7 @@ const PaginaRecursos = () => {
   );
 };
 
-// --- COMPONENTE DE CONTACTO (FORMULARIO LEADS) ---
+// --- COMPONENTE DE CONTACTO ---
 const PaginaContacto = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -183,7 +193,6 @@ export default function App() {
     { title: "Consultoría", desc: "Asesoramiento estratégico para escalar tu modelo de negocio." }
   ];
 
-  // Lógica del ChatBot corregida y agregada
   const handleSendMessage = async () => {
     if (!userInput.trim()) return;
     const userMessage = { role: "user", content: userInput };
@@ -192,7 +201,7 @@ export default function App() {
     setUserInput("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/chat", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newMessages }),
@@ -207,8 +216,6 @@ export default function App() {
   return (
     <Router>
       <div className="min-h-screen bg-[#0F0F0F] text-white selection:bg-[#C8F000] selection:text-black font-sans">
-        
-        {/* BARRA DE CONTACTO SUPERIOR */}
         <div className="bg-[#161616] border-b border-white/5 py-2 px-6">
           <div className="max-w-7xl mx-auto flex justify-between items-center text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase">
             <div className="flex gap-4">
@@ -218,7 +225,6 @@ export default function App() {
           </div>
         </div>
 
-        {/* NAVBAR */}
         <nav className="border-b border-white/10 bg-[#0F0F0F]/90 backdrop-blur-md sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <Link to="/"><img src={logo} alt="Bytes Creativos" className="h-[170px] w-auto object-contain py-2" /></Link>
@@ -234,49 +240,26 @@ export default function App() {
         <Routes>
           <Route path="/" element={
             <>
-              {/* HERO */}
               <header className="relative h-[500px] flex items-center justify-center overflow-hidden border-b border-[#C8F000]/10">
                 <div className="absolute inset-0 z-0">
                   <AnimatedBanner />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0F0F0F]"></div>
                 </div>
                 <div className="relative z-10 text-center px-6">
-                  <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-white">E-COMMERCE<br/><span className="text-[#C8F000] drop-shadow-[0_0_20px_rgba(200,240,0,0.4)]">ESTRATÉGICO</span></h1>
-                  <p className="mt-6 text-gray-400 max-w-xl mx-auto font-medium tracking-[0.2em] uppercase text-xs">Bits transformados en negocios rentables en José C. Paz.</p>
+                  <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-white">E-COMMERCE<br/><span className="text-[#C8F000]">ESTRATÉGICO</span></h1>
                 </div>
               </header>
-
-              {/* DETALLE SERVICIOS */}
               <section className="max-w-7xl mx-auto px-6 py-24 text-center">
-                <h2 className="text-sm font-black tracking-[0.5em] text-[#C8F000] uppercase mb-4">Lo que hacemos</h2>
                 <h3 className="text-4xl font-bold mb-16 text-white">Expertos en Crecimiento Digital</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   {servicesDetail.map((s, i) => (
-                    <div key={i} className="bg-[#161616] p-8 border border-white/5 rounded-2xl hover:border-[#C8F000]/40 transition-all group text-left">
-                      <div className="w-8 h-1 bg-[#C8F000] mb-6 group-hover:w-full transition-all"></div>
-                      <h4 className="text-lg font-bold mb-4 uppercase leading-tight text-white">{s.title}</h4>
-                      <p className="text-gray-500 text-xs leading-relaxed">{s.desc}</p>
+                    <div key={i} className="bg-[#161616] p-8 border border-white/5 rounded-2xl group text-left">
+                      <h4 className="text-lg font-bold mb-4 uppercase text-white">{s.title}</h4>
+                      <p className="text-gray-500 text-xs">{s.desc}</p>
                     </div>
                   ))}
                 </div>
               </section>
-
-              {/* ESENCIA */}
-              <section className="relative py-32 overflow-hidden border-y border-white/5 text-white">
-                <div className="max-w-5xl mx-auto px-6 relative z-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                    <div>
-                      <h2 className="text-[#C8F000] font-black tracking-[0.3em] uppercase text-xs mb-4">Nuestra Esencia</h2>
-                      <h3 className="text-4xl md:text-5xl font-black leading-tight mb-6 uppercase">Transformamos <br /><span className="text-gray-500">Bits en Negocios</span></h3>
-                    </div>
-                    <div className="space-y-6 text-gray-400 leading-relaxed text-lg">
-                      <p>Nacimos con la misión de fusionar la analítica avanzada con el diseño disruptivo.</p>
-                      <p>Cada línea de código está pensada para escalar, automatizar y convertir.</p>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              
               <CallToAction />
             </>
           } />
@@ -287,7 +270,6 @@ export default function App() {
 
         <Footer />
 
-        {/* BOTÓN CHAT IA ACTUALIZADO */}
         <div className="fixed bottom-10 right-10 z-[9999] flex flex-col items-end gap-4">
           {isChatOpen && (
             <div className="fixed top-1/2 right-10 transform -translate-y-1/2 w-80 h-[450px] bg-[#161616] border border-[#C8F000]/30 rounded-3xl shadow-2xl flex flex-col overflow-hidden z-50">
