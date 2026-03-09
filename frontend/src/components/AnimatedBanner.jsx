@@ -15,6 +15,11 @@ const AnimatedBanner = () => {
     canvas.width = W;
     canvas.height = H;
 
+    // Clip permanente: nada se dibuja fuera del canvas
+    ctx.beginPath();
+    ctx.rect(0, 0, W, H);
+    ctx.clip();
+
     // ── Palette ─────────────────────────────────────────────
     const NEON      = { r: 200, g: 255, b:  20 };
     const BG_COLOR  = '#030a02';
@@ -240,7 +245,7 @@ const AnimatedBanner = () => {
   }, []);
 
   return (
-    <div className="banner-wrapper w-full h-full object-cover opacity-30 shadow-inner" style={{ position: 'relative', width: '100%', height: '100%' }}>
+    <div className="banner-wrapper w-full h-full object-cover opacity-30 shadow-inner" style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
       <canvas ref={canvasRef} style={{ width: '100%', height: '100%', display: 'block' }} />
     </div>
   );

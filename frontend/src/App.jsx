@@ -45,21 +45,12 @@ const PaginaSoluciones = () => {
 const PaginaRecursos = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const recursos = [
-    { 
-      title: "Crea tu fan page en facebook y vende mas", 
-      desc: "PDF exclusivo para auditar la presencia online de tu negocio.", 
-      link: pdfFacebook 
-    },
-    { 
-      title: "Mercado Pago para Emprendedores", 
-      desc: "Guía completa para cobrar tus ventas de forma profesional.", 
-      link: pdfMercadoPago 
-    }
+    { title: "Curso Chatbot Instagram", desc: "Aprendé a automatizar tus DMs con este tutorial paso a paso.", link: "https://youtu.be/tUDPby1jyh8" },
+    { title: "Diagnóstico Digital", desc: "PDF exclusivo para auditar la presencia online de tu negocio.", link: "#" }
   ];
   const [experiencias, setExperiencias] = useState([
     { nombre: "Cris", comentario: "Excelente herramienta para automatizar Instagram.", fecha: "27/02/2026" }
   ]);
-  
   const [nuevaEx, setNuevaEx] = useState({ nombre: "", comentario: "" });
   const agregarExperiencia = (e) => {
     e.preventDefault();
@@ -73,7 +64,7 @@ const PaginaRecursos = () => {
         <h2 className="text-[#C8F000] font-black tracking-[0.4em] uppercase text-xs mb-4">Librería Bytes</h2>
         <h3 className="text-3xl sm:text-5xl font-black italic text-white uppercase">RECURSOS <span className="text-gray-600">GRATIS</span></h3>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-16 sm:mb-24">
         {recursos.map((r, i) => (
           <div key={i} className="bg-[#161616] p-8 sm:p-10 rounded-[2rem] border-2 border-white/5 hover:border-[#C8F000] transition-all text-white">
             <h4 className="text-xl sm:text-2xl font-bold mb-4 uppercase italic">{r.title}</h4>
@@ -231,7 +222,7 @@ export default function App() {
     setMessages(newMessages);
     setUserInput("");
     try {
-      const response = await fetch("/api/chat", {
+      const response = await fetch("http://localhost:5000/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newMessages }),
@@ -246,8 +237,8 @@ export default function App() {
   return (
     <Router>
       <div className="min-h-screen bg-[#0F0F0F] text-white selection:bg-[#C8F000] selection:text-black font-sans">
-        
-        {/* BARRA DE CONTACTO SUPERIOR */}
+
+        {/* BARRA SUPERIOR */}
         <div className="bg-[#161616] border-b border-white/5 py-2 px-6">
           <div className="max-w-7xl mx-auto flex justify-between items-center text-[10px] font-bold tracking-[0.2em] text-gray-400 uppercase">
             <div className="flex gap-4"></div>
@@ -255,43 +246,38 @@ export default function App() {
           </div>
         </div>
 
-        {/* NAVBAR */}
-        <nav className="border-b border-white/10 bg-[#0F0F0F]/90 backdrop-blur-md sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <Link to="/"><img src={logo} alt="Bytes Creativos" className="h-[170px] w-auto object-contain py-2" /></Link>
-            <div className="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest items-center">
-              <Link to="/" className="hover:text-[#C8F000]">Inicio</Link>
-              <Link to="/soluciones" className="hover:text-[#C8F000]">Soluciones</Link>
-              <Link to="/recursos" className="hover:text-[#C8F000]">Recursos</Link>
-              <Link to="/contacto" className="bg-[#C8F000] text-black px-6 py-2 rounded-full hover:scale-105 transition">Contacto</Link>
-            </div>
-          </div>
-        </nav>
+        {/* NAVBAR CON HAMBURGUESA */}
+        <Navbar />
 
         <Routes>
           <Route path="/" element={
             <>
               {/* HERO */}
-              <header className="relative h-[500px] flex items-center justify-center overflow-hidden border-b border-[#C8F000]/10">
+              <header className="relative h-[380px] sm:h-[500px] flex items-center justify-center overflow-hidden border-b border-[#C8F000]/10">
                 <div className="absolute inset-0 z-0">
                   <AnimatedBanner />
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0F0F0F]"></div>
                 </div>
-                <div className="relative z-10 text-center px-6">
-                  <h1 className="text-5xl md:text-8xl font-black tracking-tighter uppercase leading-none text-white">E-COMMERCE<br/><span className="text-[#C8F000] drop-shadow-[0_0_20px_rgba(200,240,0,0.4)]">ESTRATÉGICO</span></h1>
-                  <p className="mt-6 text-gray-400 max-w-xl mx-auto font-medium tracking-[0.2em] uppercase text-xs">Bits transformados en negocios rentables en José C. Paz.</p>
+                <div className="relative z-10 text-center px-4 sm:px-6">
+                  <h1 className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none text-white">
+                    E-COMMERCE<br/>
+                    <span className="text-[#C8F000] drop-shadow-[0_0_20px_rgba(200,240,0,0.4)]">ESTRATÉGICO</span>
+                  </h1>
+                  <p className="mt-4 sm:mt-6 text-gray-400 max-w-xl mx-auto font-medium tracking-[0.15em] sm:tracking-[0.2em] uppercase text-[10px] sm:text-xs">
+                    Bits transformados en negocios rentables en José C. Paz.
+                  </p>
                 </div>
               </header>
 
               {/* DETALLE SERVICIOS */}
-              <section className="max-w-7xl mx-auto px-6 py-24 text-center">
+              <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
                 <h2 className="text-sm font-black tracking-[0.5em] text-[#C8F000] uppercase mb-4">Lo que hacemos</h2>
-                <h3 className="text-4xl font-bold mb-16 text-white">Expertos en Crecimiento Digital</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <h3 className="text-3xl sm:text-4xl font-bold mb-10 sm:mb-16 text-white">Expertos en Crecimiento Digital</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   {servicesDetail.map((s, i) => (
-                    <div key={i} className="bg-[#161616] p-8 border border-white/5 rounded-2xl hover:border-[#C8F000]/40 transition-all group text-left">
-                      <div className="w-8 h-1 bg-[#C8F000] mb-6 group-hover:w-full transition-all"></div>
-                      <h4 className="text-lg font-bold mb-4 uppercase leading-tight text-white">{s.title}</h4>
+                    <div key={i} className="bg-[#161616] p-6 sm:p-8 border border-white/5 rounded-2xl hover:border-[#C8F000]/40 transition-all group text-left">
+                      <div className="w-8 h-1 bg-[#C8F000] mb-5 sm:mb-6 group-hover:w-full transition-all"></div>
+                      <h4 className="text-base sm:text-lg font-bold mb-3 sm:mb-4 uppercase leading-tight text-white">{s.title}</h4>
                       <p className="text-gray-500 text-xs leading-relaxed">{s.desc}</p>
                     </div>
                   ))}
@@ -299,21 +285,23 @@ export default function App() {
               </section>
 
               {/* ESENCIA */}
-              <section className="relative py-32 overflow-hidden border-y border-white/5 text-white">
-                <div className="max-w-5xl mx-auto px-6 relative z-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+              <section className="relative py-20 sm:py-32 overflow-hidden border-y border-white/5 text-white">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-16 items-center">
                     <div>
                       <h2 className="text-[#C8F000] font-black tracking-[0.3em] uppercase text-xs mb-4">Nuestra Esencia</h2>
-                      <h3 className="text-4xl md:text-5xl font-black leading-tight mb-6 uppercase">Transformamos <br /><span className="text-gray-500">Bits en Negocios</span></h3>
+                      <h3 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-6 uppercase">
+                        Transformamos <br /><span className="text-gray-500">Bits en Negocios</span>
+                      </h3>
                     </div>
-                    <div className="space-y-6 text-gray-400 leading-relaxed text-lg">
+                    <div className="space-y-6 text-gray-400 leading-relaxed text-base sm:text-lg">
                       <p>Nacimos con la misión de fusionar la analítica avanzada con el diseño disruptivo.</p>
                       <p>Cada línea de código está pensada para escalar, automatizar y convertir.</p>
                     </div>
                   </div>
                 </div>
               </section>
-              
+
               <CallToAction />
             </>
           } />
@@ -324,8 +312,8 @@ export default function App() {
 
         <Footer />
 
-        {/* BOTÓN CHAT IA ACTUALIZADO */}
-        <div className="fixed bottom-10 right-10 z-[9999] flex flex-col items-end gap-4">
+        {/* BOTÓN CHAT IA — ajustado para móvil */}
+        <div className="fixed bottom-6 right-4 sm:bottom-10 sm:right-10 z-[9999] flex flex-col items-end gap-4">
           {isChatOpen && (
             <div className="fixed inset-x-3 bottom-24 sm:inset-auto sm:top-1/2 sm:right-10 sm:-translate-y-1/2 sm:w-80 h-[420px] sm:h-[450px] bg-[#161616] border border-[#C8F000]/30 rounded-3xl shadow-2xl flex flex-col overflow-hidden z-50">
               <div className="bg-[#C8F000] p-4 text-black font-black flex justify-between items-center text-[10px] uppercase">
