@@ -28,6 +28,11 @@ const LogoBackground = () => {
     canvas.height = H * dpr;
     ctx.scale(dpr, dpr);
 
+    // Clip permanente: nada se dibuja fuera del canvas
+    ctx.beginPath();
+    ctx.rect(0, 0, W, H);
+    ctx.clip();
+
     const CX = W * 0.50;
     const CY = H * 0.48;
     const N  = 300;
@@ -56,10 +61,6 @@ const LogoBackground = () => {
     const scaleY = H / 900;
 
     // ── LÍNEAS ────────────────────────────────────────────────
-    // makeEllipse(posX, posY, anchoElipse, altoElipse, inclinación)
-    // speed  → velocidad (más alto = más rápido)
-    // w      → grosor de la línea
-    // tailN  → largo de la línea en puntos (0 a 300). Opcional, si no se pone se calcula solo
     const CURVES = [
       { pts: makeEllipse(CX-5,  CY-3,  200*scaleX, 60*scaleY, -20), speed: 0.00090, frac: 0.00, w: 1.6 },
       { pts: makeEllipse(CX+8,  CY+6,  188*scaleX, 55*scaleY,  28), speed: 0.00075, frac: 0.25, w: 1.5 },
@@ -68,7 +69,6 @@ const LogoBackground = () => {
     ];
 
     // ── LARGO DE LAS LÍNEAS ───────────────────────────────────
-    // Subí este número para líneas más largas, bajalo para más cortas
     const TARGET_ARC = 600 * scaleX * 1.1;
 
     CURVES.forEach(c => {
@@ -82,13 +82,15 @@ const LogoBackground = () => {
       c.tailN = Math.floor(N * Math.min(0.92, TARGET_ARC / arc));
     });
 
+    // ── Ghost canvases (sin DPR duplicado — OPTIMIZACIÓN) ────
+    // Se crean en tamaño lógico y se dibuja con drawImage escalado,
+    // evitando la multiplicación por dpr que causaba texturas enormes.
     const ghosts = CURVES.map(c => {
       const off = document.createElement('canvas');
-      off.width  = W * dpr;
-      off.height = H * dpr;
+      off.width  = W;
+      off.height = H;
       const g = off.getContext('2d', { alpha: true });
-      g.scale(dpr, dpr);
-      g.strokeStyle = 'rgba(210,255,20,0.055)'; // color del rastro tenue
+      g.strokeStyle = 'rgba(210,255,20,0.055)';
       g.lineWidth   = c.w * 1.5;
       g.lineJoin    = 'round';
       g.beginPath();
@@ -99,6 +101,7 @@ const LogoBackground = () => {
       return off;
     });
 
+    // ── OPTIMIZACIÓN: path reutilizable para no hacer save/restore extra
     function drawSnake(c, hi) {
       const p  = c.pts;
       const ti = (hi - c.tailN + N) % N;
@@ -114,15 +117,15 @@ const LogoBackground = () => {
       }
 
       // ── EFECTO BRILLO (halo exterior) ─────────────────────
-      ctx.strokeStyle = 'rgba(190,255,10,0.14)'; // color del brillo
-      ctx.lineWidth   = c.w * 13;                // tamaño del halo
+      ctx.strokeStyle = 'rgba(190,255,10,0.14)';
+      ctx.lineWidth   = c.w * 13;
       ctx.lineJoin    = 'round';
       ctx.lineCap     = 'butt';
       ctx.beginPath(); buildPath(); ctx.stroke();
 
       // ── COLOR Y GROSOR de la línea principal ──────────────
-      ctx.strokeStyle = 'rgba(215,255,25,0.95)'; // color de la línea
-      ctx.lineWidth   = c.w * 2.3;               // grosor de la línea
+      ctx.strokeStyle = 'rgba(215,255,25,0.95)';
+      ctx.lineWidth   = c.w * 2.3;
       ctx.lineJoin    = 'round';
       ctx.lineCap     = 'butt';
       ctx.beginPath(); buildPath(); ctx.stroke();
@@ -138,31 +141,44 @@ const LogoBackground = () => {
     let last     = null;
     let smoothDt = 1 / 60;
 
+    // ── OPTIMIZACIÓN: pausa si el tab se oculta ──────────────
+    const handleVisibility = () => { if (document.hidden) last = null; };
+    document.addEventListener('visibilitychange', handleVisibility);
+
     function frame(ts) {
       animationId = requestAnimationFrame(frame);
+
+      // Pausa cuando el tab está en segundo plano
+      if (document.hidden) return;
+
       if (!last) { last = ts; return; }
       const rawDt = (ts - last) / 1000;
       last = ts;
       smoothDt = smoothDt * 0.85 + Math.min(rawDt, 0.05) * 0.15;
 
-      ctx.fillStyle = '#0F0F0F'; // color de fondo
+      ctx.fillStyle = '#0F0F0F';
       ctx.fillRect(0, 0, W, H);
 
       for (let ci = 0; ci < CURVES.length; ci++) {
         const c = CURVES[ci];
         c.frac = (c.frac + c.speed * smoothDt * 60) % 1;
         const hi = Math.floor(c.frac * N) % N;
+        // OPTIMIZACIÓN: drawImage en tamaño lógico (más rápido que DPR*DPR)
         ctx.drawImage(ghosts[ci], 0, 0, W, H);
         drawSnake(c, hi);
       }
     }
 
     animationId = requestAnimationFrame(frame);
-    return () => { if (animationId) cancelAnimationFrame(animationId); };
+
+    return () => {
+      if (animationId) cancelAnimationFrame(animationId);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
   }, [isVisible]);
 
   return (
-    <div className="absolute inset-0 opacity-10" style={{ willChange: 'transform' }}>
+    <div className="absolute inset-0 opacity-10" style={{ willChange: 'transform', overflow: 'hidden' }}>
       <canvas ref={canvasRef} className="w-full h-full" style={{ display: 'block' }} />
     </div>
   );
