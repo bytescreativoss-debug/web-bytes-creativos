@@ -7,12 +7,12 @@ import CallToAction from './components/CallToAction';
 // --- COMPONENTE DE LA PÁGINA DE SOLUCIONES (SOLO SERVICIOS PAGOS) ---
 const PaginaSoluciones = () => {
   const packs = [
-    { title: "Sitios Web", price: 150000, feat: ["Logo", "Manual de Marca", "Paleta Tech"] },
-    { title: "Alineamiento de Perfil", price: 450000, feat: ["React + Tailwind", "Backend", "Dominio .com.ar"] },
-    { title: "ADS en Meta", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] },
-    { title: "ADS en Meta", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] },
-    { title: "ADS en Meta", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] },
-    { title: "ADS en Meta", price: 80000, feat: ["Estrategia IA", "5 Reels", "Dashboard Looker"] } 
+    { title: "Auditoría Digital Estratégica", price: 70000, feat: ["Evaluación del negocio online", "Benchmark / análisis rápido de competencia.", "Plan de acción estratégico"] },
+    { title: "Asesoria 1:1", price: 70000, feat: ["Videollamada de 40 minutos", "Diagnostico del perfil", "Calendario de contenido"] },
+    { title: "UGC (Creación de contenido)", price: 250000, feat: ["4 reels con audio tendencia", "10 fotos formato stories", "10 fotos formato post vertical"] },
+    { title: "ADS en Meta (Publicidad)", price: 150000, feat: ["1 campaña activa", "1 objetivo publicitario", "Reporte simple de resultados"] },
+    { title: "Sitios Web", price: 170000, feat: ["Diseño personalizado", "Dominio .com o .com.ar por un año", "Integraciones con medio de pagos y metodos de envio", "Vinculación con redes sociales"] },
+    { title: "Automatización Inteligente para tu Negocio", price: 300000, feat: ["Responder consultas de clientes", "Procesar pedidos y organizar información", "Conectar tus herramientas y sistemas"] } 
   
   ];
 
