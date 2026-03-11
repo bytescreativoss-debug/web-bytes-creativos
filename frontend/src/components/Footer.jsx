@@ -19,12 +19,15 @@ const Footer = () => {
                 <li><Link to="/contacto" className="text-gray-400 hover:text-white transition">Contacto</Link></li>
               </ul>
             </div>
-            <div>
+        <div>
               <h3 className="text-[#C8F000] font-black uppercase text-sm mb-4">SERVICIOS</h3>
               <ul className="space-y-2">
-                <li><span className="text-gray-400">Brand Identity</span></li>
-                <li><span className="text-gray-400">Web Development</span></li>
-                <li><span className="text-gray-400">Social Media Tech</span></li>
+                <li><span className="text-gray-400">Auditoría Digital</span></li>
+                <li><span className="text-gray-400">Asesoría</span></li>
+                <li><span className="text-gray-400">UGC</span></li>
+                <li><span className="text-gray-400">ADS en Meta</span></li>
+                <li><span className="text-gray-400">Sitios Web</span></li>
+                <li><span className="text-gray-400">Automatización IA</span></li>
               </ul>
             </div>
             <div>
