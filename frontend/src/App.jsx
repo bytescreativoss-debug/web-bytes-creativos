@@ -4,6 +4,7 @@ import logo from './imagenes/logobytes.png';
 import Footer from './components/Footer';
 import CallToAction from './components/CallToAction';
 import AnimatedBanner from './components/AnimatedBanner';
+import PaginaPortfolio from './components/pages/PaginaPortfolio';
 
 // --- COMPONENTE DE LA PÁGINA DE SOLUCIONES ---
 const PaginaSoluciones = () => {
@@ -163,6 +164,7 @@ const Navbar = () => {
           <Link to="/" className="hover:text-[#C8F000] transition-colors">Inicio</Link>
           <Link to="/soluciones" className="hover:text-[#C8F000] transition-colors">Soluciones</Link>
           <Link to="/recursos" className="hover:text-[#C8F000] transition-colors">Recursos</Link>
+          <Link to="/portfolio" className="hover:text-[#C8F000] transition-colors">Portfolio</Link>
           <Link to="/contacto" className="bg-[#C8F000] text-black px-6 py-2 rounded-full hover:scale-105 transition">Contacto</Link>
         </div>
 
@@ -184,6 +186,7 @@ const Navbar = () => {
           <Link to="/" className="py-3 text-sm font-bold uppercase tracking-widest border-b border-white/5 hover:text-[#C8F000] transition-colors">Inicio</Link>
           <Link to="/soluciones" className="py-3 text-sm font-bold uppercase tracking-widest border-b border-white/5 hover:text-[#C8F000] transition-colors">Soluciones</Link>
           <Link to="/recursos" className="py-3 text-sm font-bold uppercase tracking-widest border-b border-white/5 hover:text-[#C8F000] transition-colors">Recursos</Link>
+          <Link to="/portfolio" className="py-3 text-sm font-bold uppercase tracking-widest border-b border-white/5 hover:text-[#C8F000] transition-colors">Portfolio</Link>
           <Link to="/contacto" className="mt-3 mb-1 bg-[#C8F000] text-black px-6 py-3 rounded-full font-black text-xs uppercase tracking-widest text-center hover:scale-[1.02] transition">Contacto</Link>
         </div>
       </div>
@@ -313,6 +316,7 @@ export default function App() {
           } />
           <Route path="/soluciones" element={<PaginaSoluciones />} />
           <Route path="/recursos" element={<PaginaRecursos />} />
+          <Route path="/portfolio" element={<PaginaPortfolio />} />
           <Route path="/contacto" element={<PaginaContacto />} />
         </Routes>
 
