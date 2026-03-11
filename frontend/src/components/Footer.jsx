@@ -36,10 +36,10 @@ const Footer = () => {
                 <a href="https://ar.linkedin.com/in/bytes-creativos-1004bb379" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
                   <FaLinkedin />
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
+                <a href="https://www.youtube.com/@bytescreativoss" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
                   <FaYoutube />
                 </a>
-                <a href="#" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
+                <a href="https://www.tiktok.com/@bytescreativoss" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
                   <FaTiktok />
                 </a>
               </div>

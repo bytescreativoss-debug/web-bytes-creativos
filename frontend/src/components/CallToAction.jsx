@@ -22,7 +22,7 @@ const CallToAction = () => {
             <LogoBackground />
             <div className="relative z-10">
               <img src={logo} alt="Bytes Creativos Logo" className="w-40 mx-auto mb-4" />
-              <p className="text-gray-500 text-sm">Transformamos bits en negocios rentables.</p>
+              <p className="text-gray-500 text-sm">Transformamos bytes en negocios rentables.</p>
             </div>
           </div>
         </div>
