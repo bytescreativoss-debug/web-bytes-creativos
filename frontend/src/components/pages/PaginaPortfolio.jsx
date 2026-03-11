@@ -197,8 +197,8 @@ export default function PaginaPortfolio() {
         </p>
         <div className="flex items-center gap-8 flex-wrap">
           <h1 className="font-black text-[clamp(52px,9.5vw,120px)] leading-[0.9] uppercase animate-[fadeUp_0.8s_0.35s_both]">
-            CLIENTES QUE<br />
-            <em className="not-italic text-[#C8F000] drop-shadow-[0_0_50px_rgba(200,240,0,0.32)]">CONFIARON.</em>
+            CASOS QUE<br />
+            <em className="not-italic text-[#C8F000] drop-shadow-[0_0_50px_rgba(200,240,0,0.32)]">CONVIERTEN.</em>
           </h1>
         </div>
         <p className="mt-8 max-w-[540px] text-gray-500 text-sm leading-relaxed animate-[fadeUp_0.8s_0.5s_both]">
