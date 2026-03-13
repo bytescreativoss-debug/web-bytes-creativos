@@ -1,8 +1,15 @@
 FROM node:18
 WORKDIR /app
 COPY . .
+
+# 1. Entramos a backend e instalamos el motor
 RUN cd backend && npm install
-RUN cd frontend && npm install --legacy-peer-deps
-RUN cd frontend && NODE_OPTIONS=--max-old-space-size=2048 npm run build
+
+# 2. Entramos a frontend, instalamos y fabricamos la web
+RUN cd frontend && npm install && npm run build
+
+# EXTREMADAMENTE IMPORTANTE: Koyeb busca el puerto 5000 según tu configuración
 EXPOSE 5000
-CMD ["node", "/app/backend/server.js"]
+
+# El comando final para arrancar la agencia usando el puerto correcto
+CMD ["node", "backend/server.js"]
