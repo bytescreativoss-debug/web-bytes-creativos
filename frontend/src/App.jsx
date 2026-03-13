@@ -12,9 +12,8 @@ const ScrollToTop = () => {
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 };
-
-// --- COMPONENTE DE LA PÁGINA DE SOLUCIONES ---
 const PaginaSoluciones = () => {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
   const packs = [
     { title: "Auditoría Digital Estratégica", price: 70000, feat: ["Evaluación del negocio online", "Benchmark / análisis rápido de competencia.", "Plan de acción estratégico"] },
     { title: "Asesoría 1:1", price: 70000, feat: ["Videollamada de 40 minutos", "Diagnóstico del perfil", "Calendario de contenido"] },
@@ -56,6 +55,7 @@ const PaginaSoluciones = () => {
 
 // --- COMPONENTE DE RECURSOS ---
 const PaginaRecursos = () => {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
   const recursos = [
     { title: "Curso Chatbot Instagram", desc: "Aprendé a automatizar tus DMs con este tutorial paso a paso.", link: "https://youtu.be/tUDPby1jyh8" },
     { title: "Diagnóstico Digital", desc: "PDF exclusivo para auditar la presencia online de tu negocio.", link: "#" }
@@ -112,6 +112,7 @@ const PaginaRecursos = () => {
 
 // --- COMPONENTE DE CONTACTO ---
 const PaginaContacto = () => {
+  useEffect(() => { window.scrollTo(0, 0); }, []);
   const [datos, setDatos] = useState({ nombre: "", apellido: "", email: "", telefono: "" });
   const enviar = (e) => {
     e.preventDefault();
@@ -151,13 +152,19 @@ const PaginaContacto = () => {
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+
+  // Cierra el menú al navegar
   useEffect(() => { setMenuOpen(false); }, [location]);
+
   return (
     <nav className="border-b border-white/10 bg-[#0F0F0F]/90 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex justify-between items-center">
+        {/* Logo */}
         <Link to="/">
           <img src={logo} alt="Bytes Creativos" className="h-[100px] sm:h-[140px] w-auto object-contain py-2" />
         </Link>
+
+        {/* Links desktop */}
         <div className="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest items-center">
           <Link to="/" className="hover:text-[#C8F000] transition-colors">Inicio</Link>
           <Link to="/soluciones" className="hover:text-[#C8F000] transition-colors">Soluciones</Link>
@@ -165,6 +172,8 @@ const Navbar = () => {
           <Link to="/portfolio" className="hover:text-[#C8F000] transition-colors">Portfolio</Link>
           <Link to="/contacto" className="bg-[#C8F000] text-black px-6 py-2 rounded-full hover:scale-105 transition">Contacto</Link>
         </div>
+
+        {/* Botón hamburguesa (solo móvil) */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] focus:outline-none"
@@ -175,6 +184,8 @@ const Navbar = () => {
           <span className={`block w-6 h-[2px] bg-[#C8F000] transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`}></span>
         </button>
       </div>
+
+      {/* Menú móvil desplegable */}
       <div className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${menuOpen ? 'max-h-72 border-t border-white/10' : 'max-h-0'}`}>
         <div className="flex flex-col px-6 py-4 gap-1 bg-[#0F0F0F]">
           <Link to="/" className="py-3 text-sm font-bold uppercase tracking-widest border-b border-white/5 hover:text-[#C8F000] transition-colors">Inicio</Link>
@@ -251,11 +262,13 @@ export default function App() {
           </div>
         </div>
 
+        {/* NAVBAR CON HAMBURGUESA */}
         <Navbar />
 
         <Routes>
           <Route path="/" element={
             <>
+              {/* HERO */}
               <header className="relative h-[380px] sm:h-[500px] flex items-center justify-center overflow-hidden border-b border-[#C8F000]/10">
                 <div className="absolute inset-0 z-0">
                   <AnimatedBanner />
@@ -272,9 +285,10 @@ export default function App() {
                 </div>
               </header>
 
+              {/* DETALLE SERVICIOS */}
               <section className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
                 <h2 className="text-sm font-black tracking-[0.5em] text-[#C8F000] uppercase mb-4">Lo que hacemos</h2>
-                <h3 className="text-3xl sm:text-4xl font-bold mb-10 sm:mb-16 text-white">Expertos en Crecimiento Digital</h3>
+                <h3 className="text-3xl sm:text-5xl font-black italic uppercase mb-10 sm:mb-16 text-white">EXPERTOS EN <span className="text-gray-600">CRECIMIENTO DIGITAL</span></h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                   {servicesDetail.map((s, i) => (
                     <div key={i} className="bg-[#161616] p-6 sm:p-8 border border-white/5 rounded-2xl hover:border-[#C8F000]/40 transition-all group text-left">
@@ -286,20 +300,38 @@ export default function App() {
                 </div>
               </section>
 
-              <section className="relative py-20 sm:py-32 overflow-hidden border-y border-white/5 text-white">
-                <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-16 items-center">
-                    <div>
-                      <h2 className="text-[#C8F000] font-black tracking-[0.3em] uppercase text-xs mb-4">Nuestra Esencia</h2>
-                      <h3 className="text-3xl sm:text-4xl md:text-5xl font-black leading-tight mb-6 uppercase">
-                        Transformamos <br /><span className="text-gray-500">Bytes en Negocios</span>
-                      </h3>
-                    </div>
-                    <div className="space-y-6 text-gray-400 leading-relaxed text-base sm:text-lg">
-                      <p>Nacimos con la misión de fusionar la analítica avanzada con el diseño disruptivo.</p>
-                      <p>Cada línea de código está pensada para escalar, automatizar y convertir.</p>
-                    </div>
+              {/* ESENCIA */}
+              <section className="border-y border-white/5 overflow-hidden">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:h-[340px]">
+
+                  {/* columna izquierda */}
+                  <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left px-8 sm:px-12 py-10 sm:py-0">
+                    <h2 className="text-[#C8F000] font-black tracking-[0.35em] uppercase text-[10px] mb-3">
+                      Nuestra Esencia
+                    </h2>
+                    <h3 className="text-2xl sm:text-3xl md:text-3xl font-black uppercase leading-tight mb-4 text-white">
+                      Transformamos <br />
+                      <span className="text-[#C8F000]">Bytes</span>
+                      <span className="text-gray-600"> en Negocios rentables</span>
+                    </h3>
+                    <div className="w-8 h-[2px] bg-[#C8F000] mb-4" />
+                    <p className="text-gray-500 text-sm sm:text-base leading-relaxed max-w-xs">
+                      Nacimos con la misión de fusionar la analítica avanzada con el diseño disruptivo.
+                      Cada línea de código está pensada para escalar, automatizar y convertir.
+                    </p>
                   </div>
+
+                  {/* columna derecha — imagen */}
+                  <div className="w-full overflow-hidden h-[200px] md:h-full">
+                    <img
+                      src="src/imagenes/banner-esencia.png"
+                      alt="Equipo Bytes Creativos"
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: '40% center', transform: 'scale(0.85)', transformOrigin: 'center center' }}
+                      loading="lazy"
+                    />
+                  </div>
+
                 </div>
               </section>
 
@@ -314,7 +346,7 @@ export default function App() {
 
         <Footer />
 
-        {/* BOTÓN CHAT IA */}
+        {/* BOTÓN CHAT IA — ajustado para móvil */}
         <div className="fixed bottom-6 right-4 sm:bottom-10 sm:right-10 z-[9999] flex flex-col items-end gap-4">
           {isChatOpen && (
             <div className="fixed inset-x-3 bottom-24 sm:inset-auto sm:top-1/2 sm:right-10 sm:-translate-y-1/2 sm:w-80 h-[420px] sm:h-[450px] bg-[#161616] border border-[#C8F000]/30 rounded-3xl shadow-2xl flex flex-col overflow-hidden z-50">
@@ -344,6 +376,7 @@ export default function App() {
             </div>
           )}
 
+          {/* Burbujas de contacto */}
           <div className="contact-bubbles flex flex-col gap-2 mb-4" style={{ perspective: '1000px', opacity: isContactOpen ? 1 : 0, pointerEvents: isContactOpen ? 'auto' : 'none', transition: 'opacity 0.3s ease' }}>
             <div className="relative group" style={isContactOpen ? { transform: 'rotateX(0deg) scale(1)', transition: 'transform 0.5s ease 0s' } : { transform: 'rotateX(90deg) scale(0)', transition: 'transform 0.5s ease 0s' }}>
               <span className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-full mr-2 bg-[#161616] text-[#C8F000] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-xs">Chatbot</span>
