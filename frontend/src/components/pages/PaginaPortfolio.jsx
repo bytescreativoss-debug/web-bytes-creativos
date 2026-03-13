@@ -614,7 +614,7 @@ export default function PaginaPortfolio() {
                       <div style={{ position: "relative", width: "100%", aspectRatio: "9/14", background: "#000", overflow: "hidden" }}>
                    <video
                       id="ig-video-hotel"
-                      src="/src/videos/hotel-marino-reel.mp4"
+                      src="/videos/hotel-marino-reel.mp4"
                       style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", cursor: "pointer" }}
                       playsInline
                       loop
