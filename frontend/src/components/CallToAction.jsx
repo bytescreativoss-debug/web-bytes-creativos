@@ -7,7 +7,7 @@ const CallToAction = () => {
     <section className="bg-[#0F0F0F] text-white py-16 border-b border-white/5">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch">
-          <div>
+          <div className="text-center md:text-left">
             <h2 className="text-3xl font-black uppercase mb-4">¿Estás listo para potenciar tu negocio?</h2>
             <p className="text-gray-400 mb-6">Hablemos de tu proyecto y cómo podemos ayudarte a crecer.</p>
             <form className="space-y-4">
