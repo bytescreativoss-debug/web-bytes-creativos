@@ -5,7 +5,7 @@ import Footer from './components/Footer';
 import CallToAction from './components/CallToAction';
 import AnimatedBanner from './components/AnimatedBanner';
 import PaginaPortfolio from './components/pages/PaginaPortfolio';
-import bannerEsencia from './imagenes/banner-esencia.PNG';
+import bannerEsencia from './imagenes/banner-esencia.jpg';
 
 // --- SCROLL TO TOP AL CAMBIAR DE RUTA ---
 const ScrollToTop = () => {
