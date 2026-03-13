@@ -9,7 +9,7 @@ const Footer = () => {
       {/* Links Section */}
       <div className="border-t border-white/5 py-12">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
             <div>
               <h3 className="text-[#C8F000] font-black uppercase text-sm mb-4">EXPLORAR</h3>
               <ul className="space-y-2">
@@ -19,7 +19,7 @@ const Footer = () => {
                 <li><Link to="/contacto" className="text-gray-400 hover:text-white transition">Contacto</Link></li>
               </ul>
             </div>
-        <div>
+            <div>
               <h3 className="text-[#C8F000] font-black uppercase text-sm mb-4">SERVICIOS</h3>
               <ul className="space-y-2">
                 <li><span className="text-gray-400">Auditoría Digital</span></li>
@@ -32,7 +32,7 @@ const Footer = () => {
             </div>
             <div>
               <h3 className="text-[#C8F000] font-black uppercase text-sm mb-4">SEGUINOS</h3>
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 justify-center md:justify-start">
                 <a href="https://www.instagram.com/bytescreativoss/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition text-2xl">
                   <FaInstagram />
                 </a>
@@ -53,7 +53,7 @@ const Footer = () => {
 
       {/* Copyright */}
       <div className="border-t border-white/5 py-6">
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center text-sm text-gray-500">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-2 text-sm text-gray-500 text-center">
           <p>© 2026 Bytes Creativos. Todos los derechos reservados.</p>
           <p>Política de Privacidad</p>
         </div>

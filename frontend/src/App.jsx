@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import CallToAction from './components/CallToAction';
 import AnimatedBanner from './components/AnimatedBanner';
 import PaginaPortfolio from './components/pages/PaginaPortfolio';
+import bannerEsencia from './imagenes/banner-esencia.png';
 
 // --- SCROLL TO TOP AL CAMBIAR DE RUTA ---
 const ScrollToTop = () => {
@@ -280,7 +281,7 @@ export default function App() {
                     <span className="text-[#C8F000] drop-shadow-[0_0_20px_rgba(200,240,0,0.4)]">ESTRATÉGICO</span>
                   </h1>
                   <p className="mt-4 sm:mt-6 text-gray-400 max-w-xl mx-auto font-medium tracking-[0.15em] sm:tracking-[0.2em] uppercase text-[10px] sm:text-xs">
-                    Bytes transformados en negocios rentables.
+                    Bytes transformados en negocios rentables en José C. Paz.
                   </p>
                 </div>
               </header>
@@ -324,7 +325,7 @@ export default function App() {
                   {/* columna derecha — imagen */}
                   <div className="w-full overflow-hidden h-[200px] md:h-full">
                     <img
-                      src="src/imagenes/banner-esencia.png"
+                      src={bannerEsencia}
                       alt="Equipo Bytes Creativos"
                       className="w-full h-full object-cover"
                       style={{ objectPosition: '40% center', transform: 'scale(0.85)', transformOrigin: 'center center' }}
