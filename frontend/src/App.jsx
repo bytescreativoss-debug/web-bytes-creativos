@@ -327,11 +327,13 @@ export default function App() {
                     <img
                       src={bannerEsencia}
                       alt="Equipo Bytes Creativos"
-                      className="w-full h-full object-cover"
-                      style={{ objectPosition: '40% center', transform: 'scale(0.85)', transformOrigin: 'center center' }}
+className="w-full h-full object-contain"
+style={{ objectPosition: 'center center' }}
                       loading="lazy"
                     />
                   </div>
+
+                  
 
                 </div>
               </section>
