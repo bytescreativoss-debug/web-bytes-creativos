@@ -847,7 +847,7 @@ export default function PaginaPortfolio() {
                 sub:   "HTML & CSS · Chat inteligente de ventas",
                 src:   imgBytesWeb,
                 body:  "Diseño y desarrollo de la web oficial de Bytes Creativos. Presenta los servicios de la agencia y cuenta con un chat inteligente de ventas, pensado para responder consultas, captar clientes y generar contactos de forma automática.",
-                chips: [["lime","HTML"],["lime","CSS"],["purple","Chat IA"],["default","E-commerce estratégico"]],
+                chips: [["lime","HTML"],["pink","Tailwindcss"],["purple","Chat IA"],["black","Nodejs"],["blue","REACT"]],
               },
               {
                 tag:   "Tienda Online · Indumentaria",
