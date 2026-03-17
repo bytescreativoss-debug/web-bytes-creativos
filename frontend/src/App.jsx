@@ -59,7 +59,9 @@ const PaginaRecursos = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const recursos = [
     { title: "Curso Chatbot Instagram", desc: "Aprendé a automatizar tus DMs con este tutorial paso a paso.", link: "https://youtu.be/tUDPby1jyh8" },
-    { title: "Diagnóstico Digital", desc: "PDF exclusivo para auditar la presencia online de tu negocio.", link: "#" }
+    { title: "GUÍA RÁPIDA PARA CREAR TU FAN PAGE EN FACEBOOK", desc: "PDF descargable con pasos clave para lanzar tu fan page y generar comunidad.", link: "https://drive.google.com/file/d/1ICIiYsS99ke2gAbgqE0SjwtVSNd9var6/view?usp=sharing" },
+    { title: "Charla para Feriantes y Emprendedores: Tu Instagram, Tu Local", desc: "Video de capacitación para potenciar tu presencia local en Instagram.", link: "https://youtu.be/MKMjMeIgrAI?si=2Qc5SWh34ktSqlnD" },
+    { title: "Introducción a Mercado Pago para emprendedores", desc: "Herramientas para facilitar tus ventas. PDF descargable.", link: "https://drive.google.com/file/d/1i35xtsk8qusGHN-ZP65ApGmqgKKV_pyN/view?usp=sharing" }
   ];
   const [experiencias, setExperiencias] = useState([
     { nombre: "Cris", comentario: "Excelente herramienta para automatizar Instagram.", fecha: "27/02/2026" }
@@ -115,10 +117,43 @@ const PaginaRecursos = () => {
 const PaginaContacto = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const [datos, setDatos] = useState({ nombre: "", apellido: "", email: "", telefono: "" });
-  const enviar = (e) => {
+  const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
+  const [message, setMessage] = useState('');
+
+  const enviar = async (e) => {
     e.preventDefault();
-    alert(`¡Gracias ${datos.nombre}! Nos contactaremos a ${datos.email} para coordinar tu entrevista técnica.`);
-    setDatos({ nombre: "", apellido: "", email: "", telefono: "" });
+    setStatus('sending');
+    setMessage('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: `${datos.nombre} ${datos.apellido}`,
+          email: datos.email,
+          phone: datos.telefono,
+          message: `Solicitud de entrevista técnica:\nNombre: ${datos.nombre} ${datos.apellido}\nEmail: ${datos.email}\nTeléfono: ${datos.telefono}`
+        }),
+      });
+
+      const body = await response.text();
+      let data = null;
+      try { data = body ? JSON.parse(body) : null; } catch (error) { data = null; }
+
+      if (!response.ok) {
+        const errMessage = data?.error || body || 'Error en envío';
+        throw new Error(errMessage);
+      }
+
+      setStatus('success');
+      setMessage('Gracias. Tus datos fueron enviados correctamente. Revisá tu correo.');
+      setDatos({ nombre: "", apellido: "", email: "", telefono: "" });
+    } catch (error) {
+      console.error('contacto error', error);
+      setStatus('error');
+      setMessage(error.message || 'No se pudo enviar. Intentá de nuevo.');
+    }
   };
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16 sm:py-24 min-h-screen text-center">
@@ -145,6 +180,10 @@ const PaginaContacto = () => {
         <input type="tel" placeholder="Número de Teléfono" required className="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-[#C8F000] text-white" value={datos.telefono} onChange={(e) => setDatos({...datos, telefono: e.target.value})} />
         <button type="submit" className="w-full bg-[#C8F000] text-black py-5 rounded-xl font-black uppercase tracking-widest hover:scale-[1.02] transition">Enviar Solicitud</button>
       </form>
+
+      {status === 'success' && <p className="mt-4 text-green-400 font-bold">{message}</p>}
+      {status === 'error' && <p className="mt-4 text-red-400 font-bold">{message}</p>}
+
     </div>
   );
 };
@@ -281,7 +320,7 @@ export default function App() {
                     <span className="text-[#C8F000] drop-shadow-[0_0_20px_rgba(200,240,0,0.4)]">ESTRATÉGICO</span>
                   </h1>
                   <p className="mt-4 sm:mt-6 text-gray-400 max-w-xl mx-auto font-medium tracking-[0.15em] sm:tracking-[0.2em] uppercase text-[10px] sm:text-xs">
-                    Bytes transformados en negocios rentables en José C. Paz.
+                    Transformamos ideas digitales en negocios reales
                   </p>
                 </div>
               </header>
@@ -311,14 +350,11 @@ export default function App() {
                       Nuestra Esencia
                     </h2>
                     <h3 className="text-2xl sm:text-3xl md:text-3xl font-black uppercase leading-tight mb-4 text-white">
-                      Transformamos <br />
-                      <span className="text-[#C8F000]">Bytes</span>
-                      <span className="text-gray-600"> en Negocios rentables</span>
+                      Creatividad, estrategia y talento local<br />
                     </h3>
                     <div className="w-8 h-[2px] bg-[#C8F000] mb-4" />
-                    <p className="text-gray-500 text-sm sm:text-base leading-relaxed max-w-xs">
-                      Nacimos con la misión de fusionar la analítica avanzada con el diseño disruptivo.
-                      Cada línea de código está pensada para escalar, automatizar y convertir.
+                    <p className="text-gray-500 text-sm sm:text-base leading-relaxed max-w-xl">
+                    Somos un equipo de profesionales apasionados por el mundo digital. Cada perfil aporta una mirada estratégica, una especialidad y un talento único, formando un equipo multidisciplinario capaz de desarrollar ideas, estrategias y soluciones digitales que impulsan el crecimiento de las marcas.
                     </p>
                   </div>
 

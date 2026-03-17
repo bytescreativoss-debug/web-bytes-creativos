@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const nodemailer = require('nodemailer');
 const path = require('path');
 require('dotenv').config();
 
@@ -36,6 +37,50 @@ app.post('/api/chat', async (req, res) => {
         res.json({ role: 'assistant', content: response.data.choices[0].message.content });
     } catch (error) {
         res.status(500).json({ role: 'assistant', content: 'Interferencia detectada. Escribinos al WhatsApp: https://wa.me/5491144789797' });
+    }
+});
+
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 465,
+    secure: process.env.SMTP_SECURE ? process.env.SMTP_SECURE === 'true' : true,
+    auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+    },
+});
+
+transporter.verify((error, success) => {
+    if (error) {
+        console.error('SMTP config fallida:', error);
+    } else {
+        console.log('SMTP configurado correctamente. Puede enviar emails.');
+    }
+});
+
+app.post('/api/contact', async (req, res) => {
+    try {
+        const { name, email, phone, message } = req.body;
+        if (!name || !email || !message) {
+            return res.status(400).json({ error: 'Faltan datos obligatorios' });
+        }
+
+        const mailOptions = {
+            from: process.env.SMTP_USER,
+            replyTo: `${name} <${email}>`,
+            to: 'bytescreativoss@gmail.com',
+            subject: `Nuevo contacto desde el sitio bytescreativos: ${name}`,
+            text: `Nombre: ${name}\nEmail: ${email}\nTeléfono: ${phone || '-'}\nMensaje:\n${message}`,
+            html: `<p><strong>Nombre:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Teléfono:</strong> ${phone || '-'}</p><p><strong>Mensaje:</strong></p><p>${message.replace(/\n/g, '<br/>')}</p>`,
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        return res.json({ success: true });
+    } catch (error) {
+        console.error('Error contact email:', error);
+        const msg = (error.response && (error.response.body || error.response.text)) || error.message || 'No se pudo enviar el mensaje';
+        return res.status(500).json({ error: `No se pudo enviar el mensaje. ${msg}` });
     }
 });
 
