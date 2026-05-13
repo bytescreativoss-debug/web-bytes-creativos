@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-const nodemailer = require('nodemailer');
 const path = require('path');
 require('dotenv').config();
 
@@ -14,11 +13,33 @@ app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 // --- CONFIGURACIÓN DEL CEREBRO DE VENTAS DE BYTES ---
 const BYTES_SYSTEM_PROMPT = `
-Eres el "Core de Inteligencia" de Bytes Creativos, la agencia líder en crecimiento digital de José C. Paz. 
-1. IDENTIDAD: Responde siempre como parte de Bytes Creativos, equipo de estudiantes y graduados de la UNPAZ.
-2. WHATSAPP: TENEMOS WHATSAPP ACTIVO. El link es https://wa.me/5491144789797. Nunca digas que no existe.
-3. SERVICIOS: Auditoría ($70k), Asesoría ($70k), UGC ($250k), ADS ($150k), Web ($170k), Automatización ($300k).
-4. MISIÓN: Transformar bytes en negocios rentables con diseño disruptivo.
+Eres el asistente virtual de Bytes Creativos. Solo podés responder con información que esté en este documento. No inventes datos, precios ni servicios que no estén aquí. Si alguien pregunta algo que no está en esta información, decí que no tenés esa información y sugerí escribirnos al WhatsApp.
+
+=== INFORMACIÓN DE BYTES CREATIVOS ===
+
+IDENTIDAD: Somos un equipo de estudiantes y graduados de la UNPAZ, agencia de crecimiento digital en José C. Paz.
+MISIÓN: Transformar bytes en negocios rentables con diseño disruptivo.
+
+CONTACTO:
+- WhatsApp: https://wa.me/5491144789797
+- Email: bytescreativos@gmail.com
+
+SERVICIOS Y PRECIOS:
+- Auditoría Digital Estratégica: desde $70.000 (evaluación del negocio online, benchmark de competencia, plan de acción)
+- Asesoría 1:1: desde $100.000 (videollamada 40 min, diagnóstico del perfil, calendario de contenido)
+- UGC (Creación de contenido): desde $250.000 (4 reels, 10 fotos stories, 10 fotos post vertical)
+- ADS en Meta: desde $150.000 (1 campaña activa, 1 objetivo publicitario, reporte de resultados)
+- Sitios Web: desde $170.000 (diseño personalizado, dominio .com o .com.ar por un año, integración con medios de pago y envío, vinculación con redes sociales)
+- Automatización Inteligente: desde $300.000 (responder consultas de clientes, procesar pedidos, conectar herramientas y sistemas)
+
+RECURSOS GRATUITOS (Librería Bytes):
+- Curso Chatbot Instagram: https://youtu.be/tUDPby1jyh8
+- Cómo automatizar DMs en Instagram desde Meta (gratis y sin apps): https://youtu.be/XStOdrcDSxE?si=zpNv1lmz6LOGsriH
+- Guía rápida para crear tu Fan Page en Facebook (PDF): https://drive.google.com/file/d/1ICIiYsS99ke2gAbgqE0SjwtVSNd9var6/view?usp=sharing
+- Charla para Feriantes y Emprendedores — Tu Instagram, Tu Local: https://youtu.be/MKMjMeIgrAI?si=2Qc5SWh34ktSqlnD
+- Introducción a Mercado Pago para emprendedores (PDF): https://drive.google.com/file/d/1i35xtsk8qusGHN-ZP65ApGmqgKKV_pyN/view?usp=sharing
+
+BYTES LAB: Próximamente. Experiencias digitales creadas con IA. Muy pronto.
 `;
 
 // 🤖 RUTA DEL CHATBOT
@@ -37,50 +58,6 @@ app.post('/api/chat', async (req, res) => {
         res.json({ role: 'assistant', content: response.data.choices[0].message.content });
     } catch (error) {
         res.status(500).json({ role: 'assistant', content: 'Interferencia detectada. Escribinos al WhatsApp: https://wa.me/5491144789797' });
-    }
-});
-
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : 465,
-    secure: process.env.SMTP_SECURE ? process.env.SMTP_SECURE === 'true' : true,
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
-});
-
-transporter.verify((error, success) => {
-    if (error) {
-        console.error('SMTP config fallida:', error);
-    } else {
-        console.log('SMTP configurado correctamente. Puede enviar emails.');
-    }
-});
-
-app.post('/api/contact', async (req, res) => {
-    try {
-        const { name, email, phone, message } = req.body;
-        if (!name || !email || !message) {
-            return res.status(400).json({ error: 'Faltan datos obligatorios' });
-        }
-
-        const mailOptions = {
-            from: process.env.SMTP_USER,
-            replyTo: `${name} <${email}>`,
-            to: 'bytescreativoss@gmail.com',
-            subject: `Nuevo contacto desde el sitio bytescreativos: ${name}`,
-            text: `Nombre: ${name}\nEmail: ${email}\nTeléfono: ${phone || '-'}\nMensaje:\n${message}`,
-            html: `<p><strong>Nombre:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Teléfono:</strong> ${phone || '-'}</p><p><strong>Mensaje:</strong></p><p>${message.replace(/\n/g, '<br/>')}</p>`,
-        };
-
-        await transporter.sendMail(mailOptions);
-
-        return res.json({ success: true });
-    } catch (error) {
-        console.error('Error contact email:', error);
-        const msg = (error.response && (error.response.body || error.response.text)) || error.message || 'No se pudo enviar el mensaje';
-        return res.status(500).json({ error: `No se pudo enviar el mensaje. ${msg}` });
     }
 });
 
