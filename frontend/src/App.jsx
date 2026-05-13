@@ -275,16 +275,22 @@ export default function App() {
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setUserInput("");
+    const fallback = { role: "assistant", content: "Hubo un problema al conectar 😕 Podés escribirnos desde la sección Contacto de la web." };
     try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newMessages }),
+        signal: controller.signal,
       });
+      clearTimeout(timeout);
+      if (!response.ok) { setMessages([...newMessages, fallback]); return; }
       const data = await response.json();
       setMessages([...newMessages, data]);
-    } catch (error) {
-      setMessages([...newMessages, { role: "assistant", content: "Error de conexión con el servidor de Bytes." }]);
+    } catch {
+      setMessages([...newMessages, fallback]);
     }
   };
 
