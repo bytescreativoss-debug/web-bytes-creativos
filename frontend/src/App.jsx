@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import CallToAction from './components/CallToAction';
 import AnimatedBanner from './components/AnimatedBanner';
 import PaginaPortfolio from './components/pages/PaginaPortfolio';
+import BytesLabCard from './components/BytesLabCard';
 import bannerEsencia from './imagenes/banner-esencia.jpg';
 
 // --- SCROLL TO TOP AL CAMBIAR DE RUTA ---
@@ -17,7 +18,7 @@ const PaginaSoluciones = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const packs = [
     { title: "Auditoría Digital Estratégica", price: 70000, feat: ["Evaluación del negocio online", "Benchmark / análisis rápido de competencia.", "Plan de acción estratégico"] },
-    { title: "Asesoría 1:1", price: 70000, feat: ["Videollamada de 40 minutos", "Diagnóstico del perfil", "Calendario de contenido"] },
+    { title: "Asesoría 1:1", price: 100000, feat: ["Videollamada de 40 minutos", "Diagnóstico del perfil", "Calendario de contenido"] },
     { title: "UGC (Creación de contenido)", price: 250000, feat: ["4 reels con audio tendencia", "10 fotos formato stories", "10 fotos formato post vertical"] },
     { title: "ADS en Meta (Publicidad)", price: 150000, feat: ["1 campaña activa", "1 objetivo publicitario", "Reporte simple de resultados"] },
     { title: "Sitios Web", price: 170000, feat: ["Diseño personalizado", "Dominio .com o .com.ar por un año", "Integraciones con medio de pagos y métodos de envío", "Vinculación con redes sociales"] },
@@ -59,6 +60,7 @@ const PaginaRecursos = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const recursos = [
     { title: "Curso Chatbot Instagram", desc: "Aprendé a automatizar tus DMs con este tutorial paso a paso.", link: "https://youtu.be/tUDPby1jyh8" },
+    { title: "Cómo automatizar DMs en Instagram desde Meta", desc: "Automatizá tus mensajes directos desde Meta, gratis y sin apps externas.", link: "https://youtu.be/XStOdrcDSxE?si=zpNv1lmz6LOGsriH" },
     { title: "GUÍA RÁPIDA PARA CREAR TU FAN PAGE EN FACEBOOK", desc: "PDF descargable con pasos clave para lanzar tu fan page y generar comunidad.", link: "https://drive.google.com/file/d/1ICIiYsS99ke2gAbgqE0SjwtVSNd9var6/view?usp=sharing" },
     { title: "Charla para Feriantes y Emprendedores: Tu Instagram, Tu Local", desc: "Video de capacitación para potenciar tu presencia local en Instagram.", link: "https://youtu.be/MKMjMeIgrAI?si=2Qc5SWh34ktSqlnD" },
     { title: "Introducción a Mercado Pago para emprendedores", desc: "Herramientas para facilitar tus ventas. PDF descargable.", link: "https://drive.google.com/file/d/1i35xtsk8qusGHN-ZP65ApGmqgKKV_pyN/view?usp=sharing" }
@@ -118,41 +120,29 @@ const PaginaContacto = () => {
   useEffect(() => { window.scrollTo(0, 0); }, []);
   const [datos, setDatos] = useState({ nombre: "", apellido: "", email: "", telefono: "" });
   const [status, setStatus] = useState(null); // null | 'sending' | 'success' | 'error'
-  const [message, setMessage] = useState('');
 
   const enviar = async (e) => {
     e.preventDefault();
     setStatus('sending');
-    setMessage('');
-
     try {
-      const response = await fetch('/api/contact', {
+      const res = await fetch('https://formspree.io/f/mrejdeal', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
-          name: `${datos.nombre} ${datos.apellido}`,
+          name: `${datos.nombre} ${datos.apellido}`.trim(),
           email: datos.email,
           phone: datos.telefono,
-          message: `Solicitud de entrevista técnica:\nNombre: ${datos.nombre} ${datos.apellido}\nEmail: ${datos.email}\nTeléfono: ${datos.telefono}`
+          message: `Solicitud de entrevista\nNombre: ${datos.nombre} ${datos.apellido}\nEmail: ${datos.email}\nTeléfono: ${datos.telefono}`,
         }),
       });
-
-      const body = await response.text();
-      let data = null;
-      try { data = body ? JSON.parse(body) : null; } catch (error) { data = null; }
-
-      if (!response.ok) {
-        const errMessage = data?.error || body || 'Error en envío';
-        throw new Error(errMessage);
+      if (res.ok) {
+        setStatus('success');
+        setDatos({ nombre: "", apellido: "", email: "", telefono: "" });
+      } else {
+        setStatus('error');
       }
-
-      setStatus('success');
-      setMessage('Gracias. Tus datos fueron enviados correctamente. Revisá tu correo.');
-      setDatos({ nombre: "", apellido: "", email: "", telefono: "" });
-    } catch (error) {
-      console.error('contacto error', error);
+    } catch {
       setStatus('error');
-      setMessage(error.message || 'No se pudo enviar. Intentá de nuevo.');
     }
   };
   return (
@@ -171,18 +161,29 @@ const PaginaContacto = () => {
       </div>
       <h2 className="text-[#C8F000] font-black tracking-[0.4em] uppercase text-xs mb-4 text-white">Entrevista Estratégica</h2>
       <h3 className="text-3xl sm:text-5xl font-black italic mb-10 sm:mb-12 uppercase text-white">Tus <span className="text-gray-600">Datos</span></h3>
-      <form onSubmit={enviar} className="bg-[#161616] p-6 sm:p-10 rounded-[2rem] border border-white/5 space-y-6 text-left">
+      <form
+        method="POST"
+        action="https://formspree.io/f/mrejdeal"
+        onSubmit={enviar}
+        className="bg-[#161616] p-6 sm:p-10 rounded-[2rem] border border-white/5 space-y-6 text-left"
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-          <input type="text" placeholder="Nombre" required className="bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-[#C8F000] text-white w-full" value={datos.nombre} onChange={(e) => setDatos({...datos, nombre: e.target.value})} />
-          <input type="text" placeholder="Apellido" required className="bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-[#C8F000] text-white w-full" value={datos.apellido} onChange={(e) => setDatos({...datos, apellido: e.target.value})} />
+          <input name="nombre" type="text" placeholder="Nombre" required className="bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-[#C8F000] text-white w-full" value={datos.nombre} onChange={(e) => setDatos({...datos, nombre: e.target.value})} />
+          <input name="apellido" type="text" placeholder="Apellido" required className="bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-[#C8F000] text-white w-full" value={datos.apellido} onChange={(e) => setDatos({...datos, apellido: e.target.value})} />
         </div>
-        <input type="email" placeholder="Correo Electrónico" required className="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-[#C8F000] text-white" value={datos.email} onChange={(e) => setDatos({...datos, email: e.target.value})} />
-        <input type="tel" placeholder="Número de Teléfono" required className="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-[#C8F000] text-white" value={datos.telefono} onChange={(e) => setDatos({...datos, telefono: e.target.value})} />
-        <button type="submit" className="w-full bg-[#C8F000] text-black py-5 rounded-xl font-black uppercase tracking-widest hover:scale-[1.02] transition">Enviar Solicitud</button>
+        <input name="email" type="email" placeholder="Correo Electrónico" required className="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-[#C8F000] text-white" value={datos.email} onChange={(e) => setDatos({...datos, email: e.target.value})} />
+        <input name="phone" type="tel" placeholder="Número de Teléfono" required className="w-full bg-black/50 border border-white/10 p-4 rounded-xl outline-none focus:border-[#C8F000] text-white" value={datos.telefono} onChange={(e) => setDatos({...datos, telefono: e.target.value})} />
+        <button
+          type="submit"
+          disabled={status === 'sending'}
+          className="w-full bg-[#C8F000] text-black py-5 rounded-xl font-black uppercase tracking-widest hover:scale-[1.02] transition disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100"
+        >
+          {status === 'sending' ? 'Enviando...' : 'Enviar Solicitud'}
+        </button>
       </form>
 
-      {status === 'success' && <p className="mt-4 text-green-400 font-bold">{message}</p>}
-      {status === 'error' && <p className="mt-4 text-red-400 font-bold">{message}</p>}
+      {status === 'success' && <p className="mt-4 text-green-400 font-bold">Gracias. Tus datos fueron enviados correctamente.</p>}
+      {status === 'error'   && <p className="mt-4 text-red-400 font-bold">No se pudo enviar. Intentá de nuevo.</p>}
 
     </div>
   );
@@ -339,6 +340,9 @@ export default function App() {
                   ))}
                 </div>
               </section>
+
+              {/* BYTES LAB */}
+              <BytesLabCard />
 
               {/* ESENCIA */}
               <section className="border-y border-white/5 overflow-hidden">
