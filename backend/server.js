@@ -71,7 +71,7 @@ app.post('/api/chat', async (req, res) => {
         );
         res.json({ role: 'assistant', content: response.data.choices[0].message.content });
     } catch (error) {
-        res.status(500).json({ role: 'assistant', content: 'Interferencia detectada. Escribinos al WhatsApp: https://wa.me/5491144789797' });
+        res.status(500).json({ role: 'assistant', content: 'Ocurrió un problema técnico 😕 Por favor contactanos desde la sección Contacto de la web.' });
     }
 });
 
