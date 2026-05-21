@@ -75,14 +75,27 @@ app.post('/api/chat', async (req, res) => {
     }
 });
 
-// 🛠️ LA SOLUCIÓN DEFINITIVA (Expresión Regular Pura)
-// Esto evita el error "Missing parameter name" de path-to-regexp en Koyeb
-app.get(/^(?!\/api).+/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
+// Health check para Koyeb
+app.get('/health', (req, res) => res.json({ status: 'ok' }));
+
+// Sirve el frontend para cualquier ruta que no sea /api
+const INDEX = path.join(__dirname, '../frontend/dist', 'index.html');
+app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(INDEX, err => { if (err) next(err); });
 });
 
+// Error handler global — evita que el proceso crashee
+app.use((err, req, res, next) => {
+    console.error('Error:', err.message);
+    res.status(500).json({ error: 'Error interno del servidor' });
+});
+
+// Captura errores no manejados para que el proceso no muera
+process.on('uncaughtException', err => console.error('uncaughtException:', err));
+process.on('unhandledRejection', err => console.error('unhandledRejection:', err));
+
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor Bytes operando en puerto ${PORT}`);
-    console.log('Modo: Vendedor UNPAZ Online ✅');
 });
