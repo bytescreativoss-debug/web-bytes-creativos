@@ -1,16 +1,19 @@
-FROM node:18
+FROM node:18-alpine
 WORKDIR /app
-COPY . .
 
-# 1. Entramos a backend e instalamos el motor
-RUN cd backend && npm install
+# Copiar e instalar backend
+COPY backend/package*.json ./backend/
+RUN cd backend && npm install --omit=dev
 
-# 2. Entramos a frontend, instalamos con bypass de conflictos y fabricamos la web
-# Agregamos --legacy-peer-deps para solucionar el error de la captura
-RUN cd frontend && npm install --legacy-peer-deps && npm run build
+# Copiar e instalar y buildear frontend
+COPY frontend/package*.json ./frontend/
+RUN cd frontend && npm install --legacy-peer-deps
+COPY frontend/ ./frontend/
+RUN cd frontend && npm run build
 
-# EXTREMADAMENTE IMPORTANTE: Puerto sincronizado con server.js
+# Copiar el resto del backend
+COPY backend/ ./backend/
+
 EXPOSE 5000
 
-# Comando de arranque
 CMD ["node", "backend/server.js"]
