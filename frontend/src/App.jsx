@@ -8,6 +8,8 @@ import PaginaPortfolio from './components/pages/PaginaPortfolio';
 import BytesLabCard from './components/BytesLabCard';
 import bannerEsencia from './imagenes/banner-esencia.jpg';
 
+const calculadoraBytesUrl = new URL('./assets/recursos/Calculadora de Bytes.html', import.meta.url).href;
+
 // --- SCROLL TO TOP AL CAMBIAR DE RUTA ---
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -63,7 +65,8 @@ const PaginaRecursos = () => {
     { title: "Cómo automatizar DMs en Instagram desde Meta", desc: "Automatizá tus mensajes directos desde Meta, gratis y sin apps externas.", link: "https://youtu.be/XStOdrcDSxE?si=zpNv1lmz6LOGsriH" },
     { title: "GUÍA RÁPIDA PARA CREAR TU FAN PAGE EN FACEBOOK", desc: "PDF descargable con pasos clave para lanzar tu fan page y generar comunidad.", link: "https://drive.google.com/file/d/1ICIiYsS99ke2gAbgqE0SjwtVSNd9var6/view?usp=sharing" },
     { title: "Charla para Feriantes y Emprendedores: Tu Instagram, Tu Local", desc: "Video de capacitación para potenciar tu presencia local en Instagram.", link: "https://youtu.be/MKMjMeIgrAI?si=2Qc5SWh34ktSqlnD" },
-    { title: "Introducción a Mercado Pago para emprendedores", desc: "Herramientas para facilitar tus ventas. PDF descargable.", link: "https://drive.google.com/file/d/1i35xtsk8qusGHN-ZP65ApGmqgKKV_pyN/view?usp=sharing" }
+    { title: "Introducción a Mercado Pago para emprendedores", desc: "Herramientas para facilitar tus ventas. PDF descargable.", link: "https://drive.google.com/file/d/1i35xtsk8qusGHN-ZP65ApGmqgKKV_pyN/view?usp=sharing" },
+    { title: "Calculadora de Bytes", desc: "Hoja descargable con la calculadora para tu proyecto digital y presupuesto.", link: calculadoraBytesUrl }
   ];
   const [experiencias, setExperiencias] = useState([
     { nombre: "Cris", comentario: "Excelente herramienta para automatizar Instagram.", fecha: "27/02/2026" }
